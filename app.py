@@ -1,14 +1,10 @@
 import streamlit as st
 import pandas as pd
 
-# 1. CONFIGURATION DE LA PAGE (Mode large pour un look pro)
 st.set_page_config(page_title="Gemaplast - Workflow Achat", layout="wide")
 
-# 2. DESIGN PERSONNALISÉ (COULEURS : NOIR, ROUGE, BLANC, GRIS)
 st.markdown("""
-   st.markdown("""
     <style>
-    /* 1. ÉLIMINE L'ESPACE BLANC EN HAUT ET CACHE LE MENU STREAMLIT */
     #root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem;}
     header {visibility: hidden;}
     footer {visibility: hidden;}
@@ -17,18 +13,15 @@ st.markdown("""
         padding-bottom: 0rem !important;
     }
 
-    /* 2. FOND DE LA PAGE */
     .stApp {
         background-color: #FFFFFF !important;
     }
 
-    /* 3. BARRE LATÉRALE NOIRE SANS MARGE HAUTE */
     section[data-testid="stSidebar"] {
         background-color: #000000 !important;
         min-width: 320px !important;
     }
     
-    /* On force l'image du logo à coller en haut dans la sidebar */
     [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
         gap: 0rem;
         padding-top: 0rem;
@@ -38,24 +31,21 @@ st.markdown("""
         color: white !important;
     }
 
-    /* 4. TITRE DE CONNEXION */
     h2 {
         color: #000000 !important;
         font-family: 'Arial Black', sans-serif !important;
         text-align: center !important;
     }
 
-    /* 5. CARTE DE CONNEXION */
     .login-card {
         background-color: #f8f9fa;
         padding: 40px;
         border-radius: 15px;
         border: 1px solid #e0e0e0;
         box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        margin-top: 20px; /* Réduit pour monter la carte */
+        margin-top: 20px;
     }
 
-    /* 6. BOUTONS ROUGES */
     .stButton>button { 
         background-color: #CC0000 !important; 
         color: white !important;
@@ -64,7 +54,6 @@ st.markdown("""
         height: 48px !important;
     }
     </style>
-    """, unsafe_allow_html=True)
     """, unsafe_allow_html=True)
 
 # 3. INITIALISATION DES DONNÉES
