@@ -62,7 +62,7 @@ if 'db' not in st.session_state:
 # --- BARRE LATÉRALE ---
 with st.sidebar:
     # LIGNE 61 : TON IMAGE ICI
-    st.image("https://www.bing.com/images/search?view=detailV2&ccid=5E8KA22W&id=896E2249FC7407DC5CD3671A7CD231D71560D6AF&thid=OIP.5E8KA22WQkyBB-ZZwJqWFwHaHa&mediaurl=https%3a%2f%2fstagiairesdocs.s3.eu-west-3.amazonaws.com%2fwp-content%2fuploads%2f2024%2f11%2f08105829%2fLogo-STG-Entreprise-et-ecole-2024-11-08T105804.647.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.e44f0a036d96424c8107e659c09a9617%3frik%3dr9ZgFdcx0nwaZw%26pid%3dImgRaw%26r%3d0&exph=1200&expw=1200&q=gemaplast&FORM=IRPRST&ck=778BA28140260FB1DF3DA2714E36B52D&selectedIndex=0&itb=1", use_container_width=True) 
+    st.image(""C:\Users\Lenovo\Desktop\OIP.webp"", use_container_width=True) 
     
     st.markdown("<br><h3 style='border-bottom: 2px solid #CC0000; padding-bottom:10px;'>PLATEFORME FLUX</h3>", unsafe_allow_html=True)
     st.markdown("""
