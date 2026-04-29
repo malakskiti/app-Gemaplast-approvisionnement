@@ -15,9 +15,9 @@ st.markdown("""
         padding-bottom: 0rem !important;
     }
     
-    /* LOGO TEXTE GEMAPLAST EN NOIR ET ITALIQUE */
+    /* LOGO TEXTE GEMAPLAST EN ROUGE ET ITALIQUE */
     .gemaplast-logo-text {
-        color: #000000 !important;
+        color: #CC0000 !important;
         font-family: 'Arial', sans-serif;
         font-weight: bold;
         font-style: italic;
@@ -61,7 +61,7 @@ if 'db' not in st.session_state:
 # --- LOGIQUE D'AFFICHAGE ---
 
 if not st.session_state.authenticated:
-    # Page de Connexion avec Logo NOIR
+    # Page de Connexion avec Logo ROUGE
     st.markdown("<p class='gemaplast-logo-text'>GEMAPLAST</p>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 1.8, 1])
     with col2:
@@ -140,13 +140,4 @@ else:
                     st.markdown(f"<div class='prod-card'><b>Demande #{row['ID']}</b> : {row['Produit']} ({row['Quantité']} {row['Unité']})</div>", unsafe_allow_html=True)
                     c1, c2, _ = st.columns([1, 1, 4])
                     if c1.button(f"Approuver #{row['ID']}", key=f"a{row['ID']}"):
-                        st.session_state.db.at[index, 'Statut'] = "Approuvé par Prod"
-                        st.rerun()
-                    if c2.button(f"Rejeter #{row['ID']}", key=f"r{row['ID']}"):
-                        st.session_state.db.at[index, 'Statut'] = "Rejeté par Prod"
-                        st.rerun()
-
-    # SUIVI GLOBAL
-    st.divider()
-    st.subheader("📊 Suivi des flux")
-    st.dataframe(st.session_state.db, use_container_width=True)
+                        st.session_state.db.at[index, 'Statut'] = "Approuvé par Prod
