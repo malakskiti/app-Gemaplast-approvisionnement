@@ -1,98 +1,95 @@
 import streamlit as st
 import pandas as pd
 
-# 1. CONFIGURATION DE LA PAGE
-st.set_page_config(page_title="Gemaplast - Workflow Achat", layout="wide", initial_sidebar_state="collapsed")
+# 1. CONFIGURATION DE LA PAGE (Mode large pour un look pro)
+st.set_page_config(page_title="Gemaplast - Workflow Achat", layout="wide")
 
-# 2. DESIGN PERSONNALISÉ (CSS pour corriger le style et le texte en rouge/italique)
+# 2. DESIGN PERSONNALISÉ (COULEURS : NOIR, ROUGE, BLANC, GRIS)
 st.markdown("""
     <style>
-    /* ÉLIMINER TOUS LES ESPACES BLANCS EN HAUT */
-    #root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem !important;}
-    header {visibility: hidden; height: 0px !important;}
-    footer {visibility: hidden;}
-    .main .block-container {
-        padding-top: 0rem !important;
-        padding-bottom: 0rem !important;
-    }
-    
-    /* STYLE POUR LE LOGO TEXTE GEMAPLAST EN ROUGE ET ITALIQUE */
-    .gemaplast-logo-text {
-        color: #CC0000 !important; /* Rouge */
-        font-family: 'Arial', sans-serif;
-        font-weight: bold;
-        font-style: italic; /* Italique */
-        font-size: 50px;
-        text-align: center;
-        margin-top: 10px;
-        margin-bottom: 0px;
-        letter-spacing: 2px;
-    }
-
-    /* FOND DE LA PAGE BLANC */
+    /* LIGNE 11 : TOUT LE FOND DE LA PAGE EN BLANC */
     .stApp {
         background-color: #FFFFFF !important;
     }
 
-    /* BARRE LATÉRALE (DÉSACTIVÉE ICI POUR LA CONNEXION) */
+    /* BARRE LATÉRALE (BANDE NOIRE À GAUCHE) */
     section[data-testid="stSidebar"] {
         background-color: #000000 !important;
+        min-width: 320px !important;
     }
+    
+    /* TEXTES DANS LA BANDE NOIRE EN BLANC */
     section[data-testid="stSidebar"] * {
         color: white !important;
     }
 
-    /* TITRE DE CONNEXION NOIR */
-    .login-header-text {
+    /* TITRE DE CONNEXION EN NOIR INTENSE */
+    h2 {
         color: #000000 !important;
         font-family: 'Arial Black', sans-serif !important;
         text-align: center !important;
-        margin-top: -10px; /* Remonte un peu le titre */
-        margin-bottom: 30px;
+        padding-top: 10px;
     }
 
-    /* CARTE DE CONNEXION */
+    /* CARTE DE CONNEXION (GRIS TRÈS CLAIR POUR RESSORTIR SUR LE BLANC) */
     .login-card {
         background-color: #f8f9fa;
         padding: 40px;
         border-radius: 15px;
         border: 1px solid #e0e0e0;
         box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        margin-top: -20px; /* Remonte la carte */
+        margin-top: 50px;
     }
 
-    /* BOUTONS ROUGES GEMAPLAST */
+    /* BOUTONS ROUGE GEMAPLAST */
     .stButton>button { 
         background-color: #CC0000 !important; 
         color: white !important;
         border-radius: 8px !important;
+        border: none !important;
         font-weight: bold !important;
         height: 48px !important;
-        border: none !important;
-    }
-    .stButton>button:hover {
-        background-color: #990000 !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. INITIALISATION DE LA SESSION
+# 3. INITIALISATION DES DONNÉES
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 if 'db' not in st.session_state:
     st.session_state.db = pd.DataFrame(columns=["ID", "Produit", "Qte", "Statut"])
 
-# --- PAGE DE CONNEXION ---
+# --- BARRE LATÉRALE ---
+with st.sidebar:
+    # LIGNE 61 : TON IMAGE ICI
+    st.image("https://i.ibb.co/L6V8XkP/gemaplast-logo.jpg", use_container_width=True) 
+    
+    st.markdown("<br><h3 style='border-bottom: 2px solid #CC0000; padding-bottom:10px;'>PLATEFORME FLUX</h3>", unsafe_allow_html=True)
+    st.markdown("""
+    <p style='color: #d1d1d1; font-size: 14px; line-height: 1.5;'>
+    <b>Digitalisation Gemaplast</b><br>
+    Gestion centralisée des approvisionnements :<br>
+    • Saisie Magasinier<br>
+    • Validation Production<br>
+    • Audit Achat<br>
+    • Approbation Direction
+    </p>
+    """, unsafe_allow_html=True)
+    
+    if st.session_state.authenticated:
+        st.divider()
+        st.write(f"👤 Connecté : **{st.session_state.user_role}**")
+        if st.button("Se déconnecter"):
+            st.session_state.authenticated = False
+            st.rerun()
+
+# --- LOGIQUE D'AFFICHAGE ---
 if not st.session_state.authenticated:
-    
-    # Étape 1: Afficher "GEMAPLAST" en rouge et italique tout en haut
-    st.markdown("<p class='gemaplast-logo-text'>GEMAPLAST</p>", unsafe_allow_html=True)
-    
     # Centrage de la carte de connexion
-    col1, col2, col3 = st.columns([1, 1.8, 1])
+    col1, col2, col3 = st.columns([1, 1.5, 1])
     with col2:
         st.markdown("<div class='login-card'>", unsafe_allow_html=True)
-        st.markdown("<h2 class='login-header-text'>Connexion Sécurisée</h2>", unsafe_allow_html=True)
+        st.markdown("<h2>Connexion Sécurisée</h2>", unsafe_allow_html=True)
         
         email = st.text_input("Identifiant Email")
         password = st.text_input("Code d'accès", type="password")
@@ -114,6 +111,13 @@ if not st.session_state.authenticated:
         st.markdown("</div>", unsafe_allow_html=True)
 
 else:
-    # Interface après connexion (le reste de la logique pour les différents rôles vient ici)
+    # Contenu après connexion (exemple Magasinier)
     st.title(f"Espace {st.session_state.user_role}")
-    st.write("Bienvenue sur la plateforme Gemaplast.")
+    st.info("Sélectionnez une action dans le menu ou gérez les flux ci-dessous.")
+    
+    if st.session_state.user_role == "Magasinier":
+        with st.expander("➕ Créer une nouvelle demande", expanded=True):
+            prod = st.text_input("Nom du produit / Matière")
+            qte = st.number_input("Quantité", min_value=1)
+            if st.button("Envoyer la demande"):
+                st.success("Demande enregistrée !")
