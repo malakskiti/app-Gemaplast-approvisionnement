@@ -62,7 +62,7 @@ if 'db' not in st.session_state:
 # --- BARRE LATÉRALE ---
 with st.sidebar:
     # LIGNE 61 : TON IMAGE ICI
-    st.image("https://i.ibb.co/L6V8XkP/gemaplast-logo.jpg", use_container_width=True) 
+    st.image("https://www.bing.com/images/search?view=detailV2&ccid=9xLC%2fUsC&id=BE50CABA0BC79A65024480DAEDF42B59638FD45C&thid=OIP.9xLC_UsCE54ARsQoO2MU0AAAAA&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.f712c2fd4b02139e0046c4283b6314d0%3frik%3dXNSPY1kr9O3agA%26riu%3dhttp%253a%252f%252fwww.gemaplast.ma%252fassets%252fimg%252flogo.png%26ehk%3dALKbnaoMJAH3MQRP4xDXw%252fk6U4WHcnch76oBkNqg%252bd8%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=81&expw=280&q=gemaplast&FORM=IRPRST&ck=4FF28D9AB6F1C2421B383FCBFF2750CE&selectedIndex=4&itb=1", use_container_width=True) 
     
     st.markdown("<br><h3 style='border-bottom: 2px solid #CC0000; padding-bottom:10px;'>PLATEFORME FLUX</h3>", unsafe_allow_html=True)
     st.markdown("""
