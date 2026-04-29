@@ -62,7 +62,7 @@ if 'db' not in st.session_state:
 # --- BARRE LATÉRALE ---
 with st.sidebar:
     # LIGNE 61 : TON IMAGE ICI
-    st.image("OIP.webp", use_container_width=True)  
+    st.image("https://i.ibb.co/L6V8XkP/gemaplast-logo.jpg", use_container_width=True) 
     st.markdown("<br><h3 style='border-bottom: 2px solid #CC0000; padding-bottom:10px;'>PLATEFORME FLUX</h3>", unsafe_allow_html=True)
     st.markdown("""
     <p style='color: #d1d1d1; font-size: 14px; line-height: 1.5;'>
