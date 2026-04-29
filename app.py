@@ -49,6 +49,19 @@ st.markdown("""
         border: none !important;
         font-weight: bold !important;
         height: 48px !important;
+         /* Cache la barre supérieure (header) */
+        header[data-testid="stHeader"] {
+            display: none !important;
+        }
+        
+        /* Supprime l'espace vide laissé par le header */
+        .block-container {
+            padding-top: 1rem !important;
+        }
+        
+        /* Alternative si la première méthode ne fonctionne pas */
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
     }
     </style>
     """, unsafe_allow_html=True)
