@@ -119,4 +119,13 @@ else:
         with st.expander("➕ Créer une nouvelle demande", expanded=True):
             prod = st.text_input("Nom du produit / Matière")
             qte = st.number_input("Quantité", min_value=1)
-            if st.button("Env
+            if st.button("Envoyer la demande"):
+                new_id = len(st.session_state.db) + 1
+                new_entry = {"ID": new_id, "Produit": prod, "Qte": qte, "Statut": "Attente Production"}
+                st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([new_entry])], ignore_index=True)
+                st.success("Demande enregistrée !")
+
+    # Affichage du tableau de bord pour le suivi
+    st.divider()
+    st.subheader("📊 État du Flux de Validation")
+    st.dataframe(st.session_state.db, use_container_width=True)
