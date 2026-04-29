@@ -34,7 +34,7 @@ st.markdown("""
 
     /* Carte de connexion grise très claire */
     .login-card {
-        background-color: #E0E0E0;
+        background-color: #F1F1F1;
         padding: 40px;
         border-radius: 15px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.1);
