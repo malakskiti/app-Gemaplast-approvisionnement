@@ -32,7 +32,7 @@ st.markdown("""
 
     /* Titre de connexion en NOIR */
     .login-header {
-        color: #1a1a1a;
+        color: #000000;
         font-family: 'Arial', sans-serif;
         font-weight: bold;
         text-align: center;
