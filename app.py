@@ -12,7 +12,7 @@ st.markdown("""
     .card { background-color: white; padding: 20px; border-radius: 15px; border: 1px solid #e0e0e0; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
     .step-header { color: #004a99; font-weight: bold; border-left: 5px solid #004a99; padding-left: 15px; margin-bottom: 20px; }
     </style>
-    """, unsafe_allow_index=True)
+    """, unsafe_allow_html=True)
 
 # 2. Gestion de la base de données temporaire
 if 'db' not in st.session_state:
@@ -26,7 +26,7 @@ user_role = st.sidebar.selectbox("Connexion en tant que :",
 
 # --- ÉTAPE 1 : MAGASINIER ---
 if user_role == "Magasinier":
-    st.markdown("<div class='step-header'><h3>📦 ÉTAPE 1 : SAISIE MAGASINIER</h3></div>", unsafe_allow_index=True)
+    st.markdown("<div class='step-header'><h3>📦 ÉTAPE 1 : SAISIE MAGASINIER</h3></div>", unsafe_allow_html=True)
     with st.container():
         st.markdown("<div class='card'>", unsafe_allow_index=True)
         nom = st.text_input("📦 Nom du Produit")
@@ -38,7 +38,7 @@ if user_role == "Magasinier":
             entry = {"ID": new_id, "Produit": nom, "Desc": desc, "Qte": qte, "Statut": "Attente Prod", "Fournisseur": ""}
             st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([entry])], ignore_index=True)
             st.success("Notification envoyée à la Production !")
-        st.markdown("</div>", unsafe_allow_index=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # --- ÉTAPE 2 : PRODUCTION ---
 elif user_role == "Responsable Production":
@@ -53,7 +53,7 @@ elif user_role == "Responsable Production":
                 st.session_state.db.at[idx, 'Qte'] = new_qte
                 st.session_state.db.at[idx, 'Statut'] = "Attente Achat"
                 st.rerun()
-            st.markdown("</div>", unsafe_allow_index=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
 # --- ÉTAPE 3 : ACHAT ---
 elif user_role == "Responsable Achat":
@@ -69,7 +69,7 @@ elif user_role == "Responsable Achat":
             if col2.button(f"❌ REFUSER (RETOUR PROD)", key=f"r_{idx}"):
                 st.session_state.db.at[idx, 'Statut'] = "Attente Prod"
                 st.rerun()
-            st.markdown("</div>", unsafe_allow_index=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
 # --- ÉTAPE 4 : DIRECTION GÉNÉRALE ---
 elif user_role == "Directeur Général":
@@ -80,7 +80,7 @@ elif user_role == "Directeur Général":
         if st.button(f"🖋️ SIGNATURE OFFICIELLE", key=f"dg_{idx}"):
             st.session_state.db.at[idx, 'Statut'] = "VALIDÉ"
             st.rerun()
-        st.markdown("</div>", unsafe_allow_index=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # --- ÉTAPE 5 : EXÉCUTION ACHAT (FOURNISSEURS) ---
 if user_role == "Responsable Achat":
