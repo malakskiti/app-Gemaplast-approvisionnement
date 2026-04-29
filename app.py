@@ -127,10 +127,3 @@ else:
     # Contenu après connexion (exemple Magasinier)
     st.title(f"Espace {st.session_state.user_role}")
     st.info("Sélectionnez une action dans le menu ou gérez les flux ci-dessous.")
-    
-    if st.session_state.user_role == "Magasinier":
-        with st.expander("➕ Créer une nouvelle demande", expanded=True):
-            prod = st.text_input("Nom du produit / Matière")
-            qte = st.number_input("Quantité", min_value=1)
-            if st.button("Envoyer la demande"):
-                st.success("Demande enregistrée !")
