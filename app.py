@@ -9,7 +9,7 @@ st.markdown("""
     <style>
     /* Force la couleur noire sur TOUS les titres h2 de la page de login */
     h2 {
-        color: #E0E0E0 !important;
+        color: #000000 !important;
         font-family: 'Arial Black', sans-serif !important;
         text-align: center !important;
         padding-bottom: 20px !important;
@@ -34,7 +34,7 @@ st.markdown("""
 
     /* Carte de connexion grise très claire */
     .login-card {
-        background-color: #f1f1f1;
+        background-color: #E0E0E0;
         padding: 40px;
         border-radius: 15px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.1);
