@@ -47,6 +47,13 @@ st.markdown("""
         font-weight: bold !important;
         height: 40px !important;
         border: none !important;
+    prod-card {
+        background-color: #f8f9fa; /* Le fond blanc/gris très clair */
+        color: #000000 !important; /* CECI FORCE LE TEXTE EN NOIR */
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+}
     }
     </style>
     """, unsafe_allow_html=True)
