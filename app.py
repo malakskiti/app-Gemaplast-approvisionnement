@@ -9,7 +9,7 @@ st.markdown("""
     <style>
     /* Force la couleur noire sur TOUS les titres h2 de la page de login */
     h2 {
-        color: #000000 !important;
+        color: #E0E0E0 !important;
         font-family: 'Arial Black', sans-serif !important;
         text-align: center !important;
         padding-bottom: 20px !important;
