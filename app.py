@@ -81,7 +81,7 @@ else:
 
     # --- Interface PRODUCTION (Calculateur) ---
     if st.session_state.user_role == "Responsable Production":
-        st.markdown("<h3 style='color: #CC0000;'>🧮 Calculateur de Contrôle</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #CC0000;'>Calculateur de Contrôle</h3>", unsafe_allow_html=True)
         c1, c2, c3 = st.columns([1, 1, 1])
         with c1: 
             val_x = st.number_input("Valeur x", value=0.0, key="x_prod")
@@ -94,7 +94,7 @@ else:
 
     # --- Interface MAGASINIER (Formulaire rouge) ---
     if st.session_state.user_role == "Magasinier":
-        st.markdown("<h3 style='color: #CC0000;'>📦 Nouvelle Demande d'Approvisionnement</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #CC0000;'>Nouvelle Demande d'Approvisionnement</h3>", unsafe_allow_html=True)
         with st.form("form_magasinier"):
             produit = st.selectbox("Article", ["PVC", "Huile moteur", "Acier", "Courroie"])
             quantite = st.number_input("Quantité", min_value=1)
@@ -104,9 +104,9 @@ else:
                 new_id = len(st.session_state.db) + 1
                 new_row = {"ID": new_id, "Produit": produit, "Quantité": quantite, "Unité": "PCS", "Statut": "Attente Production"}
                 st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([new_row])], ignore_index=True)
-                st.success("Demande enregistrée !")
+                st.success("Demande enregistrée")
                 st.rerun()
 
     # --- SUIVI DES FLUX (Bas de page pour tous) ---
-    st.subheader("📊 Suivi général des flux")
+    st.subheader("Suivi général des flux")
     st.dataframe(st.session_state.db, use_container_width=True)
