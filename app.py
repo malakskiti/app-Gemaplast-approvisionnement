@@ -146,8 +146,14 @@ for index, row in st.session_state.db.iterrows():
             </span>
             <span style="color: #CC0000; font-weight: bold;">● {row['Priorité']}</span>
         </div>
-        <h3 style="margin: 10px 0; color: #000000 !important;">{row['Produit']}</h3>
-        <p style="font-size: 14px; color: #333333 !important;">
+        
+        <!-- Titre du produit en Noir -->
+        <h3 style="margin: 10px 0; color: #000000 !important; font-weight: bold;">
+            {row['Produit']}
+        </h3>
+        
+        <!-- Détails ID, Date, Quantité en Noir -->
+        <p style="font-size: 14px; color: #000000 !important; opacity: 1 !important;">
             <b>ID:</b> {row['ID']} | <b>Date:</b> {row['Date']} | <b>Quantité:</b> {row['Quantité']}
         </p>
     </div>
