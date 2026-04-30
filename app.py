@@ -46,7 +46,7 @@ st.markdown("""
         border-radius: 8px;
     }
 .stTextInput>div>div>input, .stNumberInput>div>div>input, .stTextArea>div>div>textarea {
-    background-color: FFB8AD !important; /* Gris moyen */
+    background-color:#FFB8AD !important; /* Gris moyen */
     color: white !important;
     border: 1px solid #666 !important;
 }
