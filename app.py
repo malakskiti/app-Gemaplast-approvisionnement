@@ -29,11 +29,13 @@ st.markdown("""
         font-size: 28px;
     }
 
-   /* Cases KPI et En-tête Nouvelle saisie */
-.kpi-card, .st-emotion-cache-p6495m {
-    background-color: ##E3B3A1 !important; /* On remplace #262730 par #454754 */
-    color: white !important;
-}
+  .kpi-card {
+        background-color: #454754 !important; /* Gris un peu foncé */
+        color: white !important; /* Texte en blanc pour le contraste */
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+    }
     /* Style spécifique pour l'en-tête de l'expander (formulaire) */
     .st-emotion-cache-p6495m { 
         background-color: #262730 !important; 
@@ -136,24 +138,26 @@ k4.markdown('<div class="kpi-card"><div>Refusées</div><div style="font-size:24p
 st.divider()
 
 # 8. AFFICHAGE DES DEMANDES
-# --- 8. AFFICHAGE DES DEMANDES (CORRIGÉ) ---
+# --- AFFICHAGE DES DEMANDES ---
 for index, row in st.session_state.db.iterrows():
-    # On crée une seule grosse chaîne de caractères HTML bien propre
-    carte_html = f"""
-    <div style="background-color: #FFFFFF; padding: 20px; border-radius: 15px; border: 1px solid #E0E0E0; margin-bottom: 10px;">
-        <div style="display: flex; justify-content: space-between;">
+    st.markdown(f"""
+    <div style="background-color: #FFFFFF; padding: 20px; border-radius: 15px; border: 1px solid #E0E0E0; margin-bottom: 20px;">
+        <!-- Ligne Statut et Priorité -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="background:#FFF9C4; color:#FBC02D; padding:5px 12px; border-radius:20px; font-size:12px; font-weight:bold;">
                 {row['Statut']}
             </span>
             <span style="color: #CC0000; font-weight: bold;">● {row['Priorité']}</span>
         </div>
-        <h3 style="color: #000000 !important; margin-top: 15px; margin-bottom: 5px; font-family: Arial;">
+        
+        <!-- TITRE EN NOIR (Produit) -->
+        <h3 style="color: #000000 !important; margin-top: 15px; margin-bottom: 5px;">
             {row['Produit']}
         </h3>
-        <p style="color: #000000 !important; font-size: 14px; margin: 0; font-family: Arial;">
+        
+        <!-- DETAILS EN NOIR (ID, Date, Quantité) -->
+        <p style="color: #000000 !important; font-size: 14px; font-weight: 500;">
             <b>ID:</b> {row['ID']} | <b>Date:</b> {row['Date']} | <b>Quantité:</b> {row['Quantité']}
         </p>
     </div>
-    """
-    # L'argument unsafe_allow_html=True est CRUCIAL ici
-    st.markdown(carte_html, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
