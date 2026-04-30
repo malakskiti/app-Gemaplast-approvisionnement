@@ -120,8 +120,6 @@ else:
     with c3:
         z = x + y
         st.markdown(f"<div class='result-box'>TOTAL (Z) : <b>{z}</b></div>", unsafe_allow_html=True)
-        z = x + y
-        st.markdown(f"<div class='result-box'>TOTAL (Z) : <b>{z}</b></div>", unsafe_allow_html=True)
 
     st.divider()
 
