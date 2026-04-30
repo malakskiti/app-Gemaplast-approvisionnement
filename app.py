@@ -35,12 +35,13 @@ st.markdown("""
 
     /* ZONE BLANCHE DE L'OPÉRATION */
     .prod-card {
-        background-color: #f8f9fa;
+       background-color: #f8f9fa;
         padding: 25px;
         border-radius: 12px;
         border: 1px solid #e0e0e0;
         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         margin-bottom: 20px;
+        color: #000000 !important;
     }
     
     /* TEXTE EN NOIR DANS LA ZONE BLANCHE */
