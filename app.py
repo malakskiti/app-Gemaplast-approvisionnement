@@ -121,15 +121,27 @@ else:
         st.divider()
 
     # 3. INTERFACE MAGASINIER (Saisie de demande)
-    if st.session_state.user_role == "Magasinier":
-       # Remplacez votre ligne st.subheader par celle-ci :
-            st.markdown("<h3 style='color: #CC0000;'>📦 Nouvelle Demande d'Approvisionnement</h3>", unsafe_allow_html=True)
+  if st.session_state.user_role == "Magasinier":
+        st.markdown("<h3 style='color: #CC0000;'>📦 Nouvelle Demande d'Approvisionnement</h3>", unsafe_allow_html=True)
+        
         with st.form("form_magasinier"):
-            produit = st.selectbox("Article", ["PVC", "Huile", "Acier"])
-            quantite = st.number_input("Quantité", min_value=1)
-            if st.form_submit_button("Envoyer au Responsable"):
-                # Logique d'ajout à la base de données ici
-                st.success("Demande transmise avec succès.")
+            produit = st.selectbox("Article", ["PVC", "Huile moteur", "Acier", "Courroie"], key="sel_prod")
+            quantite = st.number_input("Quantité", min_value=1, key="num_qte")
+            
+            submit = st.form_submit_button("Envoyer la demande")
+            
+            if submit:
+                new_id = len(st.session_state.db) + 1
+                new_row = {
+                    "ID": new_id, 
+                    "Produit": produit, 
+                    "Quantité": quantite, 
+                    "Unité": "Unité", 
+                    "Statut": "Attente Production"
+                }
+                st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([new_row])], ignore_index=True)
+                st.success("✅ Demande envoyée au Responsable Production !")
+                st.rerun()
     # PRODUCTION
     elif st.session_state.user_role == "Responsable Production":
         st.markdown("<h2 style='color: #CC0000;'>Validation Production</h2>", unsafe_allow_html=True)
