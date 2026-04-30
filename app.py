@@ -26,17 +26,32 @@ st.markdown("""
     section[data-testid="stSidebar"] { background-color: #000000 !important; }
     section[data-testid="stSidebar"] * { color: white !important; }
 
-    /* AJUSTEMENT DE LA TAILLE DE LA SECTION RÉSULTAT */
+    /* --- TABLEAU (SUIVI DES FLUX) EN ROUGE ET NOIR --- */
+    /* On cible l'en-tête du tableau */
+    thead tr th {
+        background-color: #CC0000 !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+    }
+    
+    /* On peut aussi colorer le fond général du tableau si besoin */
+    [data-testid="stDataFrame"] {
+        border: 2px solid #CC0000;
+        border-radius: 10px;
+    }
+
+    /* Boîte de résultat Z en noir/sombre pour contraste */
     .result-box {
         background-color: #262730;
         color: #FFFFFF !important;
-        padding: 8px; /* Padding réduit pour correspondre à la hauteur des inputs */
+        padding: 8px;
         border-radius: 8px;
         text-align: center;
         border: 1px solid #CC0000;
-        margin-top: 28px; /* Aligne le bloc avec les champs de saisie (sous leurs labels) */
+        margin-top: 28px;
     }
 
+    /* Cartes d'opérations */
     .prod-card {
         background-color: #f8f9fa;
         padding: 25px;
@@ -44,14 +59,14 @@ st.markdown("""
         border: 1px solid #e0e0e0;
         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         margin-bottom: 20px;
-        color: #000000 !important;
     }
+    
+    .prod-card * { color: #000000 !important; }
 
     .stButton>button { 
         background-color: #CC0000 !important; 
         color: white !important;
         border-radius: 8px !important;
-        font-weight: bold !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -85,7 +100,7 @@ else:
             st.session_state.authenticated = False
             st.rerun()
 
-    # SECTION CALCULATEUR ALIGNÉE
+    # SECTION CALCULATEUR
     st.markdown("### 🧮 Calculateur de Contrôle")
     col_input1, col_input2, col_res = st.columns([1, 1, 1])
     
@@ -95,7 +110,6 @@ else:
         y = st.number_input("Valeur y", value=0.0)
     with col_res:
         z = x + y
-        # Utilisation de margin-top pour compenser l'absence de label au-dessus du résultat
         st.markdown(f"""
             <div class='result-box'>
                 <span style='font-size:12px; font-weight:bold;'>TOTAL (Z) : </span>
@@ -117,9 +131,9 @@ else:
             for index, row in demandes.iterrows():
                 st.markdown(f"""
                 <div class='prod-card'>
-                    <h4 style='color:black;'>Demande #{row['ID']} - {row['Produit']}</h4>
-                    <p style='color:black;'>Quantité : <b>{row['Quantité']} {row['Unité']}</b></p>
-                    <p style='color:black; font-size:16px;'>Valeur calculée : <b style='color:#CC0000;'>{z}</b></p>
+                    <h4>Demande #{row['ID']} - {row['Produit']}</h4>
+                    <p>Quantité : <b>{row['Quantité']} {row['Unité']}</b></p>
+                    <p style='font-size:16px;'>Valeur calculée : <b style='color:#CC0000;'>{z}</b></p>
                 </div>
                 """, unsafe_allow_html=True)
                 
@@ -131,7 +145,7 @@ else:
                     st.session_state.db.at[index, 'Statut'] = "Rejeté"
                     st.rerun()
 
-    # SUIVI
+    # SUIVI DES FLUX (LA PARTIE QUE TU VOULAIS EN ROUGE/NOIR)
     st.divider()
     st.subheader("📊 Suivi des flux")
     st.dataframe(st.session_state.db, use_container_width=True)
