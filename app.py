@@ -122,7 +122,8 @@ else:
 
     # 3. INTERFACE MAGASINIER (Saisie de demande)
     if st.session_state.user_role == "Magasinier":
-        st.subheader("📦 Nouvelle Demande d'Approvisionnement")
+       # Remplacez votre ligne st.subheader par celle-ci :
+            st.markdown("<h3 style='color: #CC0000;'>📦 Nouvelle Demande d'Approvisionnement</h3>", unsafe_allow_html=True)
         with st.form("form_magasinier"):
             produit = st.selectbox("Article", ["PVC", "Huile", "Acier"])
             quantite = st.number_input("Quantité", min_value=1)
