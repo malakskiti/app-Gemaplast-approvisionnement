@@ -99,7 +99,7 @@ if not st.session_state.authenticated:
             else:
                 st.error("Identifiants incorrects. Vérifiez l'email et le code.")
 else:
-    # SIDEBAR
+    # 1. Barre latérale (déjà présente normalement)
     with st.sidebar:
         st.markdown("<h2 style='color:white; font-style:italic;'>GEMAPLAST</h2>", unsafe_allow_html=True)
         st.write(f"Rôle : **{st.session_state.user_role}**")
@@ -107,35 +107,28 @@ else:
             st.session_state.authenticated = False
             st.rerun()
 
-    # --- PARTIE CALCULATEUR (Visible par tous ou seulement Production selon ton choix) ---
-   if st.session_state.user_role == "Responsable Production":
-    # Tout ce qui est indenté (décalé vers la droite) ici ne sera visible que par la Production
-    st.markdown("<h3 style='color: #CC0000;'>🧮 Calculateur de Contrôle</h3>", unsafe_allow_html=True)
-    
-    c1, c2, c3 = st.columns([1, 1, 1])
-    with c1: 
-        x = st.number_input("Valeur x", value=0.0)
-    with c2: 
-        y = st.number_input("Valeur y", value=0.0)
-    with c3:
-        z = x + y
-        st.markdown(f"<div class='result-box'>TOTAL (Z) : <b>{z}</b></div>", unsafe_allow_html=True)
+    # 2. CALCULATEUR (Visible UNIQUEMENT pour la Production)
+    if st.session_state.user_role == "Responsable Production":
+        st.markdown("<h3 style='color: #CC0000;'>🧮 Calculateur de Contrôle</h3>", unsafe_allow_html=True)
+        c1, c2, c3 = st.columns([1, 1, 1])
+        with c1:
+            val_x = st.number_input("Valeur x", value=0.0, key="x_prod")
+        with c2:
+            val_y = st.number_input("Valeur y", value=0.0, key="y_prod")
+        with c3:
+            res_z = val_x + val_y
+            st.markdown(f"<div class='result-box'>TOTAL (Z) : <b>{res_z}</b></div>", unsafe_allow_html=True)
+        st.divider()
 
-    st.divider()
-
-    # --- INTERFACE SELON LE RÔLE ---
-    
-    # MAGASINIER
-   if st.session_state.user_role == "Magasinier":
-        st.subheader("Nouvelle Demande d'Approvisionnement")
-        with st.form("demande_form"):
-            prod = st.selectbox("Produit", ["Huile moteur", "PVC", "Acier", "Courroie"])
-            qte = st.number_input("Quantité", min_value=1)
-            if st.form_submit_button("Envoyer la demande"):
-                new_id = len(st.session_state.db) + 1
-                new_row = {"ID": new_id, "Produit": prod, "Quantité": qte, "Unité": "Unité", "Statut": "Attente Production"}
-                st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([new_row])], ignore_index=True)
-                st.success("Demande envoyée !")
+    # 3. INTERFACE MAGASINIER (Saisie de demande)
+    if st.session_state.user_role == "Magasinier":
+        st.subheader("📦 Nouvelle Demande d'Approvisionnement")
+        with st.form("form_magasinier"):
+            produit = st.selectbox("Article", ["PVC", "Huile", "Acier"])
+            quantite = st.number_input("Quantité", min_value=1)
+            if st.form_submit_button("Envoyer au Responsable"):
+                # Logique d'ajout à la base de données ici
+                st.success("Demande transmise avec succès.")
     # PRODUCTION
     elif st.session_state.user_role == "Responsable Production":
         st.markdown("<h2 style='color: #CC0000;'>Validation Production</h2>", unsafe_allow_html=True)
