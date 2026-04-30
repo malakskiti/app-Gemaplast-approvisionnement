@@ -45,7 +45,11 @@ st.markdown("""
         color: white !important;
         border-radius: 8px;
     }
-
+.stTextInput>div>div>input, .stNumberInput>div>div>input, .stTextArea>div>div>textarea {
+    background-color: #454754 !important; /* Gris moyen */
+    color: white !important;
+    border: 1px solid #666 !important;
+}
     /* Bouton envoyer et autres boutons en gris foncé */
     .stButton>button {
         background-color: #262730 !important;
