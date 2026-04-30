@@ -136,15 +136,18 @@ k4.markdown('<div class="kpi-card"><div>Refusées</div><div style="font-size:24p
 st.divider()
 
 # 8. AFFICHAGE DES DEMANDES
+# --- 8. AFFICHAGE DES DEMANDES ---
 for index, row in st.session_state.db.iterrows():
     st.markdown(f"""
-    <div class="demand-card">
-        <div style="display: flex; justify-content: space-between;">
-            <span style="background:#FFF9C4; color:#FBC02D; padding:5px 12px; border-radius:20px; font-size:12px; font-weight:bold;">{row['Statut']}</span>
+    <div class="demand-card" style="color: #000000 !important;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="background:#FFF9C4; color:#FBC02D; padding:5px 12px; border-radius:20px; font-size:12px; font-weight:bold;">
+                {row['Statut']}
+            </span>
             <span style="color: #CC0000; font-weight: bold;">● {row['Priorité']}</span>
         </div>
-        <h3 style="margin: 10px 0;">{row['Produit']}</h3>
-        <p style="font-size: 14px; color: #666;">
+        <h3 style="margin: 10px 0; color: #000000 !important;">{row['Produit']}</h3>
+        <p style="font-size: 14px; color: #333333 !important;">
             <b>ID:</b> {row['ID']} | <b>Date:</b> {row['Date']} | <b>Quantité:</b> {row['Quantité']}
         </p>
     </div>
