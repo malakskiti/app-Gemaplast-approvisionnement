@@ -136,25 +136,24 @@ k4.markdown('<div class="kpi-card"><div>Refusées</div><div style="font-size:24p
 st.divider()
 
 # 8. AFFICHAGE DES DEMANDES
-# --- 8. AFFICHAGE DES DEMANDES ---
+# --- 8. AFFICHAGE DES DEMANDES (CORRIGÉ) ---
 for index, row in st.session_state.db.iterrows():
-    st.markdown(f"""
-    <div class="demand-card" style="color: #000000 !important;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+    # On crée une seule grosse chaîne de caractères HTML bien propre
+    carte_html = f"""
+    <div style="background-color: #FFFFFF; padding: 20px; border-radius: 15px; border: 1px solid #E0E0E0; margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between;">
             <span style="background:#FFF9C4; color:#FBC02D; padding:5px 12px; border-radius:20px; font-size:12px; font-weight:bold;">
                 {row['Statut']}
             </span>
             <span style="color: #CC0000; font-weight: bold;">● {row['Priorité']}</span>
         </div>
-        
-        <!-- Titre du produit en Noir -->
-        <h3 style="margin: 10px 0; color: #000000 !important; font-weight: bold;">
+        <h3 style="color: #000000 !important; margin-top: 15px; margin-bottom: 5px; font-family: Arial;">
             {row['Produit']}
         </h3>
-        
-        <!-- Détails ID, Date, Quantité en Noir -->
-        <p style="font-size: 14px; color: #000000 !important; opacity: 1 !important;">
+        <p style="color: #000000 !important; font-size: 14px; margin: 0; font-family: Arial;">
             <b>ID:</b> {row['ID']} | <b>Date:</b> {row['Date']} | <b>Quantité:</b> {row['Quantité']}
         </p>
     </div>
-    """, unsafe_allow_html=True)
+    """
+    # L'argument unsafe_allow_html=True est CRUCIAL ici
+    st.markdown(carte_html, unsafe_allow_html=True)
