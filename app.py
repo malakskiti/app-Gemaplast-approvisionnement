@@ -121,7 +121,7 @@ else:
     # --- INTERFACE SELON LE RÔLE ---
     
     # MAGASINIER
-    if st.session_state.user_role == "Magasinier":
+   if st.session_state.user_role == "Magasinier":
         st.subheader("Nouvelle Demande d'Approvisionnement")
         with st.form("demande_form"):
             prod = st.selectbox("Produit", ["Huile moteur", "PVC", "Acier", "Courroie"])
