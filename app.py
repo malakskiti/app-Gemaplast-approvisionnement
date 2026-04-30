@@ -31,7 +31,7 @@ st.markdown("""
 
    /* Cases KPI et En-tête Nouvelle saisie */
 .kpi-card, .st-emotion-cache-p6495m {
-    background-color: #454754 !important; /* On remplace #262730 par #454754 */
+    background-color: #FF0000 !important; /* On remplace #262730 par #454754 */
     color: white !important;
 }
     /* Style spécifique pour l'en-tête de l'expander (formulaire) */
