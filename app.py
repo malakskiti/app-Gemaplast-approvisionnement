@@ -98,8 +98,8 @@ if not st.session_state.authenticated:
                 st.rerun()
             else:
                 st.error("Identifiants incorrects. Vérifiez l'email et le code.")
-else:
-    # 1. Barre latérale (déjà présente normalement)
+   else:
+    # 1. BARRE LATÉRALE (Sidebar)
     with st.sidebar:
         st.markdown("<h2 style='color:white; font-style:italic;'>GEMAPLAST</h2>", unsafe_allow_html=True)
         st.write(f"Rôle : **{st.session_state.user_role}**")
@@ -107,27 +107,15 @@ else:
             st.session_state.authenticated = False
             st.rerun()
 
-    # 2. CALCULATEUR (Visible UNIQUEMENT pour la Production)
-    if st.session_state.user_role == "Responsable Production":
-        st.markdown("<h3 style='color: #CC0000;'>🧮 Calculateur de Contrôle</h3>", unsafe_allow_html=True)
-        c1, c2, c3 = st.columns([1, 1, 1])
-        with c1:
-            val_x = st.number_input("Valeur x", value=0.0, key="x_prod")
-        with c2:
-            val_y = st.number_input("Valeur y", value=0.0, key="y_prod")
-        with c3:
-            res_z = val_x + val_y
-            st.markdown(f"<div class='result-box'>TOTAL (Z) : <b>{res_z}</b></div>", unsafe_allow_html=True)
-        st.divider()
-
-    # 3. INTERFACE MAGASINIER (Saisie de demande)
-  if st.session_state.user_role == "Magasinier":
+    # 2. INTERFACE SELON LE RÔLE
+    
+    # --- CAS MAGASINIER ---
+    if st.session_state.user_role == "Magasinier":
         st.markdown("<h3 style='color: #CC0000;'>📦 Nouvelle Demande d'Approvisionnement</h3>", unsafe_allow_html=True)
         
         with st.form("form_magasinier"):
-            produit = st.selectbox("Article", ["PVC", "Huile moteur", "Acier", "Courroie"], key="sel_prod")
-            quantite = st.number_input("Quantité", min_value=1, key="num_qte")
-            
+            produit = st.selectbox("Article", ["PVC", "Huile moteur", "Acier", "Courroie"], key="prod_mag")
+            quantite = st.number_input("Quantité", min_value=1, key="qte_mag")
             submit = st.form_submit_button("Envoyer la demande")
             
             if submit:
@@ -142,25 +130,24 @@ else:
                 st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([new_row])], ignore_index=True)
                 st.success("✅ Demande envoyée au Responsable Production !")
                 st.rerun()
-    # PRODUCTION
-    elif st.session_state.user_role == "Responsable Production":
-        st.markdown("<h2 style='color: #CC0000;'>Validation Production</h2>", unsafe_allow_html=True)
-        demandes = st.session_state.db[st.session_state.db['Statut'] == "Attente Production"]
-        if demandes.empty:
-            st.info("Aucune commande en attente.")
-        else:
-            for index, row in demandes.iterrows():
-                st.markdown(f"""
-                <div class='prod-card'>
-                    <h4>Demande #{row['ID']} - {row['Produit']}</h4>
-                    <p>Quantité : <b>{row['Quantité']}</b> | Calcul : <b style='color:#CC0000;'>{z}</b></p>
-                </div>
-                """, unsafe_allow_html=True)
-                if st.button(f"Approuver #{row['ID']}", key=f"app_{index}"):
-                    st.session_state.db.at[index, 'Statut'] = "Approuvé Prod"
-                    st.rerun()
 
-    # --- TABLEAU DE SUIVI (EN BAS POUR TOUT LE MONDE) ---
+    # --- CAS RESPONSABLE PRODUCTION ---
+    elif st.session_state.user_role == "Responsable Production":
+        st.markdown("<h3 style='color: #CC0000;'>🧮 Calculateur de Contrôle</h3>", unsafe_allow_html=True)
+        
+        c1, c2, c3 = st.columns([1, 1, 1])
+        with c1:
+            vx = st.number_input("Valeur x", value=0.0, key="px")
+        with c2:
+            vy = st.number_input("Valeur y", value=0.0, key="py")
+        with c3:
+            st.markdown(f"<div class='result-box'>TOTAL (Z) : <b>{vx + vy}</b></div>", unsafe_allow_html=True)
+        
+        st.divider()
+        st.markdown("<h2 style='color: #CC0000;'>Opérations en attente</h2>", unsafe_allow_html=True)
+        # (Suite de votre logique de validation...)
+
+    # 3. SUIVI DES FLUX (Visible par tous en bas)
     st.divider()
-    st.subheader("📊 Suivi des flux")
+    st.subheader("📊 Suivi général des flux")
     st.dataframe(st.session_state.db, use_container_width=True)
