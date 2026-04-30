@@ -128,7 +128,13 @@ else:
             qte = st.number_input("Quantité", min_value=1)
             if st.form_submit_button("Envoyer la demande"):
                 new_id = len(st.session_state.db) + 1
-                new_row = {"ID": new_id, "Produit": prod, "Quantité": qte, "Unité": "Unité", "Statut": "Attente Production"}
+                new_row = {
+                    "ID": new_id, 
+                    "Produit": prod, 
+                    "Quantité": qte, 
+                    "Unité": "Unité", 
+                    "Statut": "Attente Production"
+                }
                 st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([new_row])], ignore_index=True)
                 st.success("Demande envoyée !")
 
