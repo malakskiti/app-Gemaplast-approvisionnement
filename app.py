@@ -29,16 +29,11 @@ st.markdown("""
         font-size: 28px;
     }
 
-    /* Cases KPI et éléments en GRIS FONCÉ */
-    .kpi-card {
-        background-color: #262730; 
-        color: white !important;
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-        border: 1px solid #444;
-    }
-    
+   /* Cases KPI et En-tête Nouvelle saisie */
+.kpi-card, .st-emotion-cache-p6495m {
+    background-color: #454754 !important; /* On remplace #262730 par #454754 */
+    color: white !important;
+}
     /* Style spécifique pour l'en-tête de l'expander (formulaire) */
     .st-emotion-cache-p6495m { 
         background-color: #262730 !important; 
