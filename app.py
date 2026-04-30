@@ -11,7 +11,6 @@ st.markdown("""
     header {visibility: hidden; height: 0px !important;}
     footer {visibility: hidden;}
     
-    /* Logo Gemaplast en Rouge */
     .gemaplast-logo-text {
         color: #CC0000 !important;
         font-family: 'Arial', sans-serif;
@@ -24,21 +23,20 @@ st.markdown("""
 
     .stApp { background-color: #FFFFFF !important; }
 
-    /* Barre latérale noire */
     section[data-testid="stSidebar"] { background-color: #000000 !important; }
     section[data-testid="stSidebar"] * { color: white !important; }
 
-    /* Boîte de résultat du calcul */
+    /* AJUSTEMENT DE LA TAILLE DE LA SECTION RÉSULTAT */
     .result-box {
         background-color: #262730;
         color: #FFFFFF !important;
-        padding: 20px;
-        border-radius: 10px;
+        padding: 8px; /* Padding réduit pour correspondre à la hauteur des inputs */
+        border-radius: 8px;
         text-align: center;
-        border: 2px solid #CC0000;
+        border: 1px solid #CC0000;
+        margin-top: 28px; /* Aligne le bloc avec les champs de saisie (sous leurs labels) */
     }
 
-    /* Carte blanche pour les opérations */
     .prod-card {
         background-color: #f8f9fa;
         padding: 25px;
@@ -62,7 +60,6 @@ st.markdown("""
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 if 'db' not in st.session_state:
-    # On ajoute une ligne d'exemple pour tester l'affichage
     st.session_state.db = pd.DataFrame([
         {"ID": 1, "Produit": "Huile moteur 5W-30", "Quantité": 20, "Unité": "Litre", "Statut": "Attente Production"}
     ])
@@ -88,9 +85,9 @@ else:
             st.session_state.authenticated = False
             st.rerun()
 
-    # SECTION CALCULATEUR AMÉLIORÉE
-    st.markdown("### 🧮 Calculateur de Contrôle (x + y = z)")
-    col_input1, col_input2, col_res = st.columns([1, 1, 1.5])
+    # SECTION CALCULATEUR ALIGNÉE
+    st.markdown("### 🧮 Calculateur de Contrôle")
+    col_input1, col_input2, col_res = st.columns([1, 1, 1])
     
     with col_input1:
         x = st.number_input("Valeur x", value=0.0)
@@ -98,10 +95,11 @@ else:
         y = st.number_input("Valeur y", value=0.0)
     with col_res:
         z = x + y
+        # Utilisation de margin-top pour compenser l'absence de label au-dessus du résultat
         st.markdown(f"""
             <div class='result-box'>
-                <span style='font-size:14px; opacity:0.8;'>RÉSULTAT TOTAL (Z)</span><br>
-                <span style='font-size:32px; font-weight:bold;'>{z}</span>
+                <span style='font-size:12px; font-weight:bold;'>TOTAL (Z) : </span>
+                <span style='font-size:18px; font-weight:bold;'>{z}</span>
             </div>
         """, unsafe_allow_html=True)
 
@@ -121,7 +119,7 @@ else:
                 <div class='prod-card'>
                     <h4 style='color:black;'>Demande #{row['ID']} - {row['Produit']}</h4>
                     <p style='color:black;'>Quantité : <b>{row['Quantité']} {row['Unité']}</b></p>
-                    <p style='color:black; font-size:18px;'>Valeur calculée actuelle : <b style='color:#CC0000;'>{z}</b></p>
+                    <p style='color:black; font-size:16px;'>Valeur calculée : <b style='color:#CC0000;'>{z}</b></p>
                 </div>
                 """, unsafe_allow_html=True)
                 
