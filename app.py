@@ -108,10 +108,15 @@ else:
             st.rerun()
 
     # --- PARTIE CALCULATEUR (Visible par tous ou seulement Production selon ton choix) ---
+   if st.session_state.user_role == "Responsable Production":
+    # Tout ce qui est indenté (décalé vers la droite) ici ne sera visible que par la Production
     st.markdown("<h3 style='color: #CC0000;'>🧮 Calculateur de Contrôle</h3>", unsafe_allow_html=True)
+    
     c1, c2, c3 = st.columns([1, 1, 1])
-    with c1: x = st.number_input("Valeur x", value=0.0)
-    with c2: y = st.number_input("Valeur y", value=0.0)
+    with c1: 
+        x = st.number_input("Valeur x", value=0.0)
+    with c2: 
+        y = st.number_input("Valeur y", value=0.0)
     with c3:
         z = x + y
         st.markdown(f"<div class='result-box'>TOTAL (Z) : <b>{z}</b></div>", unsafe_allow_html=True)
