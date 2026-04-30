@@ -84,15 +84,18 @@ if not st.session_state.authenticated:
         email = st.text_input("Identifiant Email")
         password = st.text_input("Code d'accès", type="password")
         
-        if st.button("ACCÉDER AU PORTAIL"):
-            if email in USERS_DB and USERS_DB[email]["code"] == password:
-                st.session_state.authenticated = True
-                st.session_state.user_role = USERS_DB[email]["role"]
-                st.session_state.user_email = email
-                st.rerun()
-            else:
-                st.error("Identifiants incorrects. Vérifiez l'email et le code.")
-
+       if st.button("ACCÉDER AU PORTAIL"):
+    # On force la mise en minuscule de l'email pour éviter les erreurs de frappe
+    clean_email = email.strip().lower() 
+    
+    if clean_email in USERS_DB and USERS_DB[clean_email]["code"] == password:
+        st.session_state.authenticated = True
+        st.session_state.user_role = USERS_DB[clean_email]["role"]
+        st.session_state.user_email = clean_email
+        st.rerun()
+    # Ajoute ce bloc pour voir ce que le code reçoit vraiment (utile pour débugger)
+    else:
+        st.error(f"Email reçu: '{email}' | Code reçu: '{password}'")
 else:
     # SIDEBAR
     with st.sidebar:
