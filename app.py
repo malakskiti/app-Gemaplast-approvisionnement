@@ -32,7 +32,29 @@ st.markdown("""
         font-style: italic;
         font-size: 35px;
     }
+    /* 1. Mettre le bouton d'upload en blanc/gris clair avec texte noir */
+    .stFileUploader section {
+        background-color: #FFFFFF !important;
+        border: 1px solid #E0E0E0 !important;
+        color: black !important;
+    }
     
+    /* Changer la couleur du texte d'aide (200MB, XLSX) en noir */
+    .stFileUploader [data-testid="stMarkdownContainer"] p {
+        color: black !important;
+    }
+
+    /* 2. Mettre la liste déroulante (Selectbox) en blanc avec texte noir */
+    div[data-baseweb="select"] > div {
+        background-color: #FFFFFF !important;
+        color: black !important;
+        border: 1px solid #E0E0E0 !important;
+    }
+
+    /* Forcer la couleur noire pour le texte à l'intérieur de la liste */
+    div[data-testid="stSelectbox"] label, div[data-testid="stSelectbox"] p {
+        color: black !important;
+    }
     /* Titre en rouge */
     .titre-rouge {
         color: #CC0000;
