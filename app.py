@@ -1,7 +1,14 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-
+# On charge le fichier Excel
+try:
+    df_produits = pd.read_excel("produits.xlsx")
+    # On transforme la colonne en liste pour Streamlit
+    LISTE_PRODUITS = df_produits["Designation"].tolist() 
+except Exception as e:
+    # Liste de secours si le fichier Excel a un problème
+    LISTE_PRODUITS = ["Erreur chargement Excel"]
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Gemaplast - Workflow", layout="wide")
 
@@ -110,25 +117,33 @@ with col_btn:
 if st.session_state.show_form:
     with st.expander("Nouvelle saisie", expanded=True):
        with st.form("add_form"):
-            prod = st.text_input("Produit")
-            qte = st.number_input("Quantité", min_value=1)
-            desc = st.text_area("Description")
+            # 1. Sélection du produit depuis ton Excel
+            prod = st.selectbox("Sélectionner le Produit", LISTE_PRODUITS)
             
-            # AJOUTE CETTE LIGNE ICI :
+            # 2. Champ Quantité : l'utilisateur peut taper ou cliquer sur + / -
+            # value=1 est la valeur par défaut au chargement
+            qte_saisie = st.number_input("Quantité à commander", min_value=1, value=1, step=1)
+            
+            # 3. Description et Priorité
+            desc = st.text_area("Description / Notes particulières")
             prio = st.selectbox("Priorité", ["Haute", "Moyenne", "Basse"]) 
             
-            if st.form_submit_button("Envoyer la demande"):
+            # Bouton de validation
+            envoi = st.form_submit_button("Envoyer la demande")
+
+            if envoi:
                 new_data = {
                     "ID": f"D00{len(st.session_state.db)+1}",
                     "Produit": prod,
-                    "Quantité": qte,
+                    "Quantité": qte_saisie, # On utilise ici la variable qte_saisie
                     "Date": datetime.now().strftime("%d/%m/%Y"),
                     "Statut": "En attente Production",
                     "Description": desc,
-                    "Priorité": prio  # MODIFIE CETTE LIGNE (remplace "Moyenne" par prio)
+                    "Priorité": prio
                 }
+                # (Ici ton code pour ajouter new_data à ton st.session_state.db)
                 st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([new_data])], ignore_index=True)
-                st.session_state.show_form = False
+                st.success("Demande enregistrée avec succès !")
                 st.rerun()
 
 # 7. INDICATEURS (KPI) EN GRIS FONCÉ
