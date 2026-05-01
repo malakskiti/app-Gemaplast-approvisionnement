@@ -1,14 +1,19 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-# On charge le fichier Excel
-try:
-    df_produits = pd.read_excel("produits.xlsx")
-    # On transforme la colonne en liste pour Streamlit
-    LISTE_PRODUITS = df_produits["Designation"].tolist() 
-except Exception as e:
-    # Liste de secours si le fichier Excel a un problème
-    LISTE_PRODUITS = ["Erreur chargement Excel"]
+import pandas as pd
+import streamlit as st
+
+# Créer un bouton de téléchargement dans la barre latérale ou le menu
+file = st.file_uploader("Charger la liste des produits (Excel)", type=["xlsx"])
+
+if file is not None:
+    df_produits = pd.read_excel(file)
+    # On récupère la colonne 'Designation' (ou le nom de ta colonne)
+    LISTE_PRODUITS = df_produits["Designation"].tolist()
+else:
+    # Liste par défaut si aucun fichier n'est chargé
+    LISTE_PRODUITS = ["Veuillez charger un fichier Excel"]
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Gemaplast - Workflow", layout="wide")
 
