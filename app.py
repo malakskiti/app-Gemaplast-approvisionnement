@@ -38,7 +38,17 @@ st.markdown("""
         border: 1px solid #E0E0E0 !important;
         color: black !important;
     }
-    
+    /* Pour la zone de texte (Description) */
+.stTextArea textarea {
+    color: #000000 !important; /* Texte tapé en noir */
+    background-color: #FFFFFF !important; /* Fond bien blanc */
+}
+
+/* Pour le label (le titre au-dessus de la case) */
+.stTextArea label p {
+    color: #000000 !important; /* Titre en noir */
+    font-weight: bold;
+}
     /* Changer la couleur du texte d'aide (200MB, XLSX) en noir */
     .stFileUploader [data-testid="stMarkdownContainer"] p {
         color: black !important;
