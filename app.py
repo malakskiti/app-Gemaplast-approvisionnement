@@ -30,8 +30,8 @@ st.markdown("""
     }
 
   .kpi-card {
-        background-color: #454754 !important; /* Gris un peu foncé */
-        color: white !important; /* Texte en blanc pour le contraste */
+        background-color: #FFFFFF !important; /* Gris un peu foncé */
+        color: black !important; /* Texte en blanc pour le contraste */
         padding: 15px;
         border-radius: 10px;
         text-align: center;
