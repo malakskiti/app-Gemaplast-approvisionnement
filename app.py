@@ -32,6 +32,22 @@ st.markdown("""
         font-style: italic;
         font-size: 35px;
     }
+    /* 1. Forcer le texte saisi par l'utilisateur en noir */
+    .stTextArea textarea {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+    }
+
+    /* 2. Forcer le titre 'Description / Notes particulières' en noir */
+    .stTextArea label p {
+        color: #000000 !important;
+    }
+
+    /* 3. Bonus : Forcer aussi le texte dans la case Quantité (car elle est sombre sur ton image) */
+    .stNumberInput input {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+    }
     /* 1. Mettre le bouton d'upload en blanc/gris clair avec texte noir */
     .stFileUploader section {
         background-color: #FFFFFF !important;
