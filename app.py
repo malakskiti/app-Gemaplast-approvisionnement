@@ -137,12 +137,11 @@ k4.markdown('<div class="kpi-card"><div>Refusées</div><div style="font-size:24p
 
 st.divider()
 
-# 8. AFFICHAGE DES DEMANDES
-# --- AFFICHAGE DES DEMANDES ---
+# --- 8. AFFICHAGE DES DEMANDES (CORRECTION FINALE) ---
 for index, row in st.session_state.db.iterrows():
-    st.markdown(f"""
-    <div style="background-color: #FFFFFF; padding: 20px; border-radius: 15px; border: 1px solid #E0E0E0; margin-bottom: 20px;">
-        <!-- Ligne Statut et Priorité -->
+    # On prépare le contenu sans aucun commentaire <!-- --> pour éviter les bugs
+    contenu_carte = f"""
+    <div style="background-color: #FFFFFF; padding: 20px; border-radius: 15px; border: 1px dotted #E0E0E0; margin-bottom: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="background:#FFF9C4; color:#FBC02D; padding:5px 12px; border-radius:20px; font-size:12px; font-weight:bold;">
                 {row['Statut']}
@@ -150,14 +149,16 @@ for index, row in st.session_state.db.iterrows():
             <span style="color: #CC0000; font-weight: bold;">● {row['Priorité']}</span>
         </div>
         
-        <!-- TITRE EN NOIR (Produit) -->
-        <h3 style="color: #000000 !important; margin-top: 15px; margin-bottom: 5px;">
+        <h3 style="color: #000000 !important; margin-top: 15px; margin-bottom: 5px; font-family: sans-serif;">
             {row['Produit']}
         </h3>
         
-        <!-- DETAILS EN NOIR (ID, Date, Quantité) -->
-        <p style="color: #000000 !important; font-size: 14px; font-weight: 500;">
+        <p style="color: #000000 !important; font-size: 14px; font-family: sans-serif;">
             <b>ID:</b> {row['ID']} | <b>Date:</b> {row['Date']} | <b>Quantité:</b> {row['Quantité']}
         </p>
     </div>
-    """, unsafe_allow_html=True)
+    """
+    
+    # ATTENTION : Utilisez st.html si vous avez une version récente, 
+    # sinon st.markdown avec unsafe_allow_html=True
+    st.markdown(contenu_carte, unsafe_allow_html=True)
