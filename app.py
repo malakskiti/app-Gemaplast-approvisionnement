@@ -109,17 +109,23 @@ with col_btn:
 # 6. FORMULAIRE DE SAISIE (Gris foncé appliqué via CSS)
 if st.session_state.show_form:
     with st.expander("Nouvelle saisie", expanded=True):
-        with st.form("add_form"):
+       with st.form("add_form"):
             prod = st.text_input("Produit")
             qte = st.number_input("Quantité", min_value=1)
             desc = st.text_area("Description")
-            submit = st.form_submit_button("Envoyer la demande")
-            if submit:
+            
+            # AJOUTE CETTE LIGNE ICI :
+            prio = st.selectbox("Priorité", ["Haute", "Moyenne", "Basse"]) 
+            
+            if st.form_submit_button("Envoyer la demande"):
                 new_data = {
                     "ID": f"D00{len(st.session_state.db)+1}",
-                    "Produit": prod, "Quantité": qte, 
+                    "Produit": prod,
+                    "Quantité": qte,
                     "Date": datetime.now().strftime("%d/%m/%Y"),
-                    "Statut": "En attente Production", "Description": desc, "Priorité": "Moyenne"
+                    "Statut": "En attente Production",
+                    "Description": desc,
+                    "Priorité": prio  # MODIFIE CETTE LIGNE (remplace "Moyenne" par prio)
                 }
                 st.session_state.db = pd.concat([st.session_state.db, pd.DataFrame([new_data])], ignore_index=True)
                 st.session_state.show_form = False
