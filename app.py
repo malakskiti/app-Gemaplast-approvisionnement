@@ -151,16 +151,13 @@ with st.sidebar:
     st.markdown('<p class="logo-text" style="text-align:center;">GEMAPLAST</p>', unsafe_allow_html=True)
     st.markdown('<p class="sidebar-desc">Entreprise de fabrication de conduites en PVC et polyéthylène</p>', unsafe_allow_html=True)
     
-    # --- ESPACE ET BOUTON DE DÉCONNEXION ---
-    st.markdown("<br><br>", unsafe_allow_html=True) # Ajoute un peu d'espace
-    st.markdown("---") # Une ligne de séparation
+    st.markdown("---")
     
+    # Le bouton qui réinitialise l'accès et renvoie à l'identification
     if st.button("🔓 Déconnexion"):
-        # On réinitialise l'état d'authentification
+        # On passe la variable d'accès à False
         st.session_state.authentifie = False
-        # On vide le reste de la mémoire pour plus de sécurité
-        st.session_state.clear()
-        # On relance l'application pour revenir à l'écran de login
+        # On force le rechargement pour afficher le formulaire de login
         st.rerun()
 
 # 5. EN-TÊTE PRINCIPAL
