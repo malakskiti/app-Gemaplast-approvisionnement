@@ -150,7 +150,18 @@ if 'show_form' not in st.session_state:
 with st.sidebar:
     st.markdown('<p class="logo-text" style="text-align:center;">GEMAPLAST</p>', unsafe_allow_html=True)
     st.markdown('<p class="sidebar-desc">Entreprise de fabrication de conduites en PVC et polyéthylène</p>', unsafe_allow_html=True)
-    # Suppression des boutons Paramètres et Tableau de bord ici
+    
+    # --- ESPACE ET BOUTON DE DÉCONNEXION ---
+    st.markdown("<br><br>", unsafe_allow_html=True) # Ajoute un peu d'espace
+    st.markdown("---") # Une ligne de séparation
+    
+    if st.button("🔓 Déconnexion"):
+        # On réinitialise l'état d'authentification
+        st.session_state.authentifie = False
+        # On vide le reste de la mémoire pour plus de sécurité
+        st.session_state.clear()
+        # On relance l'application pour revenir à l'écran de login
+        st.rerun()
 
 # 5. EN-TÊTE PRINCIPAL
 col_logo, col_titre, col_btn = st.columns([1, 3, 1.2])
