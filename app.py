@@ -1,8 +1,38 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-import pandas as pd
-import streamlit as st
+
+# --- 1. INITIALISATION DE L'ACCÈS ---
+if 'authentifie' not in st.session_state:
+    st.session_state.authentifie = False
+
+# --- 2. PAGE DE LOGIN ---
+if not st.session_state.authentifie:
+    st.title("Authentification Gemaplast")
+    user = st.text_input("Username")
+    code = st.text_input("Code / Mot de passe", type="password")
+    
+    if st.button("Se connecter"):
+        if user == "admin" and code == "1234":
+            st.session_state.authentifie = True
+            st.rerun()
+        else:
+            st.error("Identifiants incorrects")
+
+# --- 3. TON APPLICATION (SI CONNECTÉ) ---
+else:
+    # --- TOUT TON CODE ACTUEL DOIT ÊTRE ICI (INDENTÉ VERS LA DROITE) ---
+    
+    # Exemple de ta sidebar avec le bouton de déconnexion
+    with st.sidebar:
+        st.markdown('<p class="logo-text">GEMAPLAST</p>', unsafe_allow_html=True)
+        st.markdown("---")
+        if st.button("🔓 Déconnexion"):
+            st.session_state.authentifie = False
+            st.rerun()
+
+    # Ensuite, tu colles tes KPI, ton formulaire de saisie,
+    # et ta boucle d'affichage des commandes ici...
 
 # Créer un bouton de téléchargement dans la barre latérale ou le menu
 file = st.file_uploader("Charger la liste des produits (Excel)", type=["xlsx"])
